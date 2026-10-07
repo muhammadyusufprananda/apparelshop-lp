@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ChevronDown, HelpCircle, MessageCircle } from 'lucide-react';
+import { ChevronDown, MessageCircle, HelpCircle } from 'lucide-react';
 import { STORE_CONFIG } from '../data/storeConfig';
 import { generateConciergeWhatsAppUrl } from '../utils/whatsapp';
 
@@ -11,49 +11,47 @@ export default function FAQSection() {
   };
 
   return (
-    <section id="faq" className="py-20 sm:py-28 bg-alabaster border-b border-sand/50">
+    <section id="faq" className="py-14 sm:py-20 bg-white border-b border-slate-200">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Section Header */}
-        <div className="text-center mb-16 space-y-4">
-          <span className="text-[11px] tracking-widest-2xl uppercase text-muted font-medium block">
-            Informasi & Panduan
+        {/* Section Heading */}
+        <div className="text-center mb-10 space-y-2">
+          <span className="text-xs font-bold text-blue-600 uppercase tracking-widest bg-blue-50 px-3 py-1 rounded-full">
+            Tanya Jawab
           </span>
-          <h2 className="font-serif text-3xl sm:text-5xl font-light text-obsidian tracking-tight">
+          <h2 className="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight">
             Pertanyaan yang Sering Diajukan
           </h2>
-          <p className="text-muted text-xs sm:text-sm font-light leading-relaxed max-w-lg mx-auto">
-            Semua yang perlu Anda ketahui mengenai pemesanan melalui WhatsApp, kualitas serat, penukaran ukuran, dan privasi transaksi.
+          <p className="text-slate-600 text-sm">
+            Informasi seputar cara pesan, custom bordir/sablon, minimal order, dan garansi.
           </p>
         </div>
 
-        {/* Accordion List */}
-        <div className="space-y-4">
+        {/* Accordions */}
+        <div className="space-y-3">
           {STORE_CONFIG.faqs.map((faq, idx) => {
             const isOpen = openIndex === idx;
             return (
               <div
                 key={idx}
-                className="border border-sand bg-alabaster transition-all"
+                className="border border-slate-200 rounded-xl overflow-hidden bg-slate-50 transition-colors"
               >
                 <button
                   type="button"
                   onClick={() => toggleAccordion(idx)}
-                  className="w-full text-left p-6 sm:p-7 flex items-center justify-between gap-4 focus:outline-none"
+                  className="w-full text-left p-4 sm:p-5 flex items-center justify-between gap-4 font-bold text-slate-900 text-sm sm:text-base hover:text-blue-600"
                 >
-                  <span className="font-serif text-lg sm:text-xl font-medium text-obsidian">
-                    {faq.question}
-                  </span>
+                  <span>{faq.question}</span>
                   <ChevronDown
                     size={18}
-                    className={`text-muted transition-transform duration-300 flex-shrink-0 ${
-                      isOpen ? 'transform rotate-180 text-obsidian' : ''
+                    className={`text-slate-400 transition-transform duration-200 flex-shrink-0 ${
+                      isOpen ? 'transform rotate-180 text-blue-600' : ''
                     }`}
                   />
                 </button>
 
                 {isOpen && (
-                  <div className="px-6 pb-6 sm:px-7 sm:pb-7 text-xs sm:text-sm text-muted font-light leading-relaxed border-t border-sand/40 pt-4 animate-fade-in">
+                  <div className="px-4 pb-4 sm:px-5 sm:pb-5 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-slate-200 pt-3 bg-white">
                     {faq.answer}
                   </div>
                 )}
@@ -62,20 +60,20 @@ export default function FAQSection() {
           })}
         </div>
 
-        {/* Still have questions? */}
-        <div className="mt-12 text-center p-6 bg-ecru/40 border border-sand flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="text-center sm:text-left">
-            <h4 className="font-serif text-base font-medium text-obsidian">Memiliki pertanyaan spesifik lainnya?</h4>
-            <p className="text-xs text-muted">Tim Concierge kami siap membalas pesan Anda dalam hitungan menit.</p>
+        {/* WA consultation callout */}
+        <div className="mt-8 p-5 bg-blue-50 rounded-xl border border-blue-200 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+          <div>
+            <h4 className="font-bold text-slate-900 text-sm">Masih ada pertanyaan lain seputar pesanan Anda?</h4>
+            <p className="text-xs text-slate-600">Admin kami siap menjawab dan membantu pemilihan bahan.</p>
           </div>
           <a
-            href={generateConciergeWhatsAppUrl("Pertanyaan Khusus")}
+            href={generateConciergeWhatsAppUrl("Pertanyaan Lain seputar Pemesanan")}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-5 py-2.5 bg-obsidian hover:bg-gold hover:text-obsidian text-alabaster text-xs tracking-wider uppercase font-semibold transition-colors"
+            className="inline-flex items-center gap-2 px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold transition-colors whitespace-nowrap shadow-sm"
           >
-            <MessageCircle size={14} />
-            <span>Tanya Concierge Sekarang</span>
+            <MessageCircle size={15} />
+            <span>Tanya Langsung ke CS</span>
           </a>
         </div>
 

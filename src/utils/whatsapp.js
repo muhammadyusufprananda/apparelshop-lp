@@ -2,9 +2,8 @@ import { STORE_CONFIG } from '../data/storeConfig';
 import { formatIDR } from './formatters';
 
 /**
- * Builds direct WhatsApp URLs for seamless customer checkout & consultation.
+ * Membentuk URL WhatsApp langsung dengan pesan otomatis rapi
  */
-
 export function buildWhatsAppLink(message) {
   const cleanPhone = STORE_CONFIG.whatsappNumber.replace(/[^0-9]/g, '');
   const encodedMessage = encodeURIComponent(message);
@@ -12,78 +11,77 @@ export function buildWhatsAppLink(message) {
 }
 
 /**
- * Generates WhatsApp URL for single product order
+ * Format pesan WhatsApp untuk 1 Produk
  */
-export function generateProductWhatsAppUrl(product, size = "M", color = null, quantity = 1) {
-  const selectedColor = color || (product.colors && product.colors[0]?.name) || "Default";
+export function generateProductWhatsAppUrl(product, size = "L", color = null, quantity = 1) {
+  const selectedColor = color || (product.colors && product.colors[0]?.name) || "Standar";
   const total = product.price * quantity;
 
   const lines = [
-    `Halo ${STORE_CONFIG.brandName} Concierge,`,
-    `Saya tertarik untuk memesan koleksi berikut:`,
+    `Halo Admin ${STORE_CONFIG.brandName},`,
+    `Saya ingin memesan produk berikut:`,
     ``,
-    `✦ *${product.name}* (${product.edition || 'Atelier Collection'})`,
+    `*${product.name}*`,
     `• Ukuran : ${size}`,
     `• Warna : ${selectedColor}`,
-    `• Kuantitas : ${quantity} pcs`,
+    `• Jumlah : ${quantity} pcs`,
     `• Harga Satuan : ${formatIDR(product.price)}`,
-    `• Estimasi Total : ${formatIDR(total)}`,
+    `• Total : ${formatIDR(total)}`,
     ``,
     `*Data Pemesan:*`,
-    `Nama : [Isi Nama Anda]`,
-    `Nomor HP : [Isi Nomor HP]`,
-    `Alamat Kirim : [Kota / Kecamatan]`,
+    `Nama: `,
+    `Kota/Kecamatan Pengiriman: `,
+    `Catatan Tambahan (Misal: request sablon/bordir nama): `,
     ``,
-    `Mohon informasi ketersediaan stok & petunjuk transaksi resmi. Terima kasih.`
+    `Apakah stok dan ukuran ini tersedia? Mohon info ongkir dan nomor rekening ya. Terima kasih!`
   ];
 
   return buildWhatsAppLink(lines.join('\n'));
 }
 
 /**
- * Generates WhatsApp URL for multi-item Cart Drawer checkout
+ * Format pesan WhatsApp untuk Tas Belanja (Multi-item)
  */
 export function generateCartWhatsAppUrl(cartItems, totalPrice) {
   const lines = [
-    `Halo ${STORE_CONFIG.brandName} Concierge,`,
-    `Saya ingin menyelesaikan pesanan untuk beberapa koleksi:`,
+    `Halo Admin ${STORE_CONFIG.brandName},`,
+    `Saya ingin memesan beberapa produk dari katalog web:`,
     ``,
-    `━━━━━━ DAFTAR PESANAN ━━━━━━`
+    `📋 *RINCIAN PESANAN:*`
   ];
 
   cartItems.forEach((item, index) => {
     lines.push(
       `${index + 1}. *${item.name}*`,
-      `   • Size: ${item.size} | Warna: ${item.color || 'Standard'}`,
-      `   • Jumlah: ${item.quantity} x ${formatIDR(item.price)} = ${formatIDR(item.price * item.quantity)}`
+      `   Ukuran: ${item.size} | Warna: ${item.color || 'Standar'}`,
+      `   Jumlah: ${item.quantity} pcs x ${formatIDR(item.price)} = ${formatIDR(item.price * item.quantity)}`
     );
   });
 
   lines.push(
-    `━━━━━━━━━━━━━━━━━━━━━━━━━━━━`,
-    `*TOTAL KESELURUHAN : ${formatIDR(totalPrice)}*`,
     ``,
-    `*Data Penerima:*`,
-    `Nama Lengkap : [Isi Nama]`,
-    `Nomor Telepon : [Isi Nomor Aktif]`,
-    `Alamat Lengkap : [Alamat, Kota, Kode Pos]`,
-    `Catatan Khusus : [Opsional: misal request kartu ucapan]`,
+    `*TOTAL PESANAN : ${formatIDR(totalPrice)}*`,
     ``,
-    `Mohon bantuan untuk konfirmasi ketersediaan dan nomor rekening resmi. Terima kasih!`
+    `*Data Pengiriman:*`,
+    `Nama Penerima: `,
+    `Nomor HP: `,
+    `Alamat Lengkap / Kota: `,
+    ``,
+    `Mohon info ketersediaan stok dan total pembayaran beserta ongkirnya. Terima kasih!`
   );
 
   return buildWhatsAppLink(lines.join('\n'));
 }
 
 /**
- * Generates WhatsApp URL for general consultation, sizing advice, or custom inquiry
+ * Format pesan WhatsApp untuk Konsultasi Custom Seragam / Lusinan
  */
-export function generateConciergeWhatsAppUrl(topic = "Konsultasi Umum") {
+export function generateConciergeWhatsAppUrl(topic = "Tanya Stok & Custom Seragam") {
   const lines = [
-    `Halo ${STORE_CONFIG.brandName} Concierge,`,
-    `Saya ingin berkonsultasi mengenai: *${topic}*.`,
+    `Halo Admin ${STORE_CONFIG.brandName},`,
+    `Saya ingin konsultasi mengenai: *${topic}*.`,
     ``,
-    `Apakah stylist Anda sedang tersedia untuk membantu rekomendasi ukuran dan panduan koleksi terbaru? Terima kasih.`
+    `Saya ingin menanyakan tentang pembuatan baju olahraga / seragam lapangan (harga grosir, minimal order, dan contoh bahan). Mohon infonya ya, terima kasih!`
   ];
 
   return buildWhatsAppLink(lines.join('\n'));

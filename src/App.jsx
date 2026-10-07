@@ -2,11 +2,10 @@ import React from 'react';
 import { CartProvider } from './context/CartContext';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
-import EditorialIntro from './components/EditorialIntro';
+import KeunggulanSection from './components/KeunggulanSection';
 import CollectionGrid from './components/CollectionGrid';
-import LookbookGallery from './components/LookbookGallery';
-import Craftsmanship from './components/Craftsmanship';
-import WhatsAppConciergeSection from './components/WhatsAppConciergeSection';
+import CustomSeragamBanner from './components/CustomSeragamBanner';
+import CaraOrderSection from './components/CaraOrderSection';
 import FAQSection from './components/FAQSection';
 import Footer from './components/Footer';
 import QuickViewModal from './components/QuickViewModal';
@@ -17,25 +16,24 @@ import Toast from './components/Toast';
 export default function App() {
   return (
     <CartProvider>
-      <div className="min-h-screen flex flex-col bg-alabaster text-obsidian font-sans antialiased selection:bg-obsidian selection:text-alabaster">
-        {/* Navigation */}
+      <div className="min-h-screen flex flex-col bg-slate-50 text-slate-900 font-sans antialiased selection:bg-blue-600 selection:text-white">
+        {/* Navigation Bar */}
         <Navbar />
 
         {/* Main Content */}
         <main className="flex-1">
           <Hero />
-          <EditorialIntro />
+          <KeunggulanSection />
           <CollectionGrid />
-          <LookbookGallery />
-          <Craftsmanship />
-          <WhatsAppConciergeSection />
+          <CustomSeragamBanner />
+          <CaraOrderSection />
           <FAQSection />
         </main>
 
         {/* Footer */}
         <Footer />
 
-        {/* Overlays, Drawers & Modals */}
+        {/* Modals & Overlays */}
         <QuickViewModal />
         <CartDrawer />
         <FloatingWhatsApp />

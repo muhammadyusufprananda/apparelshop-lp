@@ -1,105 +1,96 @@
 import React from 'react';
-import { ArrowDown, MessageCircle, ShieldCheck, Sparkles } from 'lucide-react';
+import { MessageCircle, ShieldCheck, Truck, CheckCircle2, ArrowRight } from 'lucide-react';
 import { STORE_CONFIG } from '../data/storeConfig';
 import { generateConciergeWhatsAppUrl } from '../utils/whatsapp';
 
 export default function Hero() {
   return (
-    <section className="relative overflow-hidden bg-alabaster pt-4 pb-16 sm:pb-24 border-b border-sand/50">
+    <section className="relative bg-gradient-to-b from-white via-slate-50 to-slate-100 py-12 sm:py-20 border-b border-slate-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Main Hero Container */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
           
-          {/* Left Column: Editorial Headline & Actions */}
-          <div className="lg:col-span-7 space-y-6 sm:space-y-8 order-2 lg:order-1 pt-4 lg:pt-0">
+          {/* Left Text */}
+          <div className="lg:col-span-7 space-y-6">
             
-            {/* Tagline Badge */}
-            <div className="inline-flex items-center gap-2 px-3 py-1 bg-sand/60 border border-sand text-obsidian text-[11px] tracking-widest-xl uppercase font-medium rounded-full">
-              <Sparkles size={12} className="text-gold" />
-              <span>Autumn / Winter '26 — Edition No. 04</span>
+            {/* Pill Tag */}
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-blue-50 border border-blue-200 text-blue-700 text-xs font-semibold rounded-full">
+              <span className="w-2 h-2 rounded-full bg-blue-600"></span>
+              <span>Konveksi & Apparel Terpercaya untuk Tim & Lapangan</span>
             </div>
 
-            {/* Grand Editorial Headline */}
-            <h1 className="font-serif text-4xl sm:text-6xl lg:text-7xl xl:text-8xl font-normal leading-[1.08] tracking-tight text-obsidian">
-              Kemewahan dalam <br />
-              <span className="italic font-light text-muted">Kesunyian</span> Bentuk.
+            {/* Direct Headline */}
+            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.15]">
+              Baju Olahraga & Kemeja Lapangan <span className="text-blue-600">Kuat, Adem, & Siap Pakai.</span>
             </h1>
 
-            {/* Paragraph / Manifesto */}
-            <p className="text-muted text-base sm:text-lg max-w-xl font-light leading-relaxed">
-              Siluet busana kontemporer dengan potongan presisi, kain organik pilihan, dan proporsi yang menonjolkan karisma alami. Dibuat dalam jumlah terbatas, dipesan eksklusif melalui WhatsApp VIP Concierge.
+            {/* Subhead */}
+            <p className="text-slate-600 text-base sm:text-lg max-w-xl font-normal leading-relaxed">
+              Solusi apparel untuk tim olahraga, instansi, komunitas outdoor, dan pekerja lapangan. Dibuat dengan bahan berpori anti-gerah dan jahitan rantai kokoh. Bisa beli satuan atau custom seragam lusinan.
             </p>
 
             {/* Action Buttons */}
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-2">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-2">
               <a
-                href="#koleksi"
-                className="inline-flex items-center justify-center px-8 py-4 bg-obsidian text-alabaster text-xs tracking-widest uppercase font-medium hover:bg-gold hover:text-obsidian transition-all duration-300 shadow-md group"
+                href="#katalog"
+                className="inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold rounded-lg shadow-md hover:shadow-lg transition-all"
               >
-                <span>Jelajahi Koleksi</span>
-                <span className="ml-2 group-hover:translate-x-1 transition-transform">→</span>
+                <span>Lihat Katalog Produk</span>
+                <ArrowRight size={16} />
               </a>
 
               <a
-                href={generateConciergeWhatsAppUrl("Inquiry Konsultasi Koleksi")}
+                href={generateConciergeWhatsAppUrl("Konsultasi Seragam Tim / Lapangan")}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2.5 px-7 py-4 border border-obsidian/30 bg-transparent text-obsidian text-xs tracking-widest uppercase font-medium hover:border-emerald-600 hover:text-emerald-700 hover:bg-emerald-50/40 transition-all duration-300"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-bold rounded-lg shadow-md hover:shadow-lg transition-all"
               >
-                <MessageCircle size={16} className="text-emerald-600" />
-                <span>Pesan Cepat via WhatsApp</span>
+                <MessageCircle size={18} />
+                <span>Order Cepat via WhatsApp</span>
               </a>
             </div>
 
-            {/* Subtle Reassurance Micro-features */}
-            <div className="pt-6 border-t border-sand/70 grid grid-cols-2 sm:grid-cols-3 gap-4 text-xs text-muted">
-              <div>
-                <span className="block font-semibold text-obsidian font-serif text-sm">Jaminan Ukuran Pas</span>
-                <span className="text-[11px]">Free size exchange 7 hari</span>
+            {/* Quick Guarantees */}
+            <div className="pt-4 grid grid-cols-2 sm:grid-cols-3 gap-3 text-xs text-slate-600 font-medium border-t border-slate-200">
+              <div className="flex items-center gap-2">
+                <CheckCircle2 size={16} className="text-emerald-600 flex-shrink-0" />
+                <span>Bisa Pesan Satuan</span>
               </div>
-              <div>
-                <span className="block font-semibold text-obsidian font-serif text-sm">Pengiriman Kilat</span>
-                <span className="text-[11px]">Berasuransi ke seluruh RI</span>
+              <div className="flex items-center gap-2">
+                <CheckCircle2 size={16} className="text-emerald-600 flex-shrink-0" />
+                <span>Bisa Sablon & Bordir</span>
               </div>
-              <div className="col-span-2 sm:col-span-1">
-                <span className="block font-semibold text-obsidian font-serif text-sm">Respon Concierge</span>
-                <span className="text-[11px]">&lt; 5 menit via WhatsApp</span>
+              <div className="flex items-center gap-2 col-span-2 sm:col-span-1">
+                <Truck size={16} className="text-blue-600 flex-shrink-0" />
+                <span>Kirim Se-Indonesia</span>
               </div>
             </div>
 
           </div>
 
-          {/* Right Column: Hero Visual Showcase */}
-          <div className="lg:col-span-5 order-1 lg:order-2">
-            <div className="relative mx-auto max-w-md lg:max-w-none">
+          {/* Right Visual Image */}
+          <div className="lg:col-span-5">
+            <div className="relative rounded-2xl overflow-hidden shadow-xl border border-slate-200 bg-white">
               
-              {/* Main Image Frame with Architectural Border */}
-              <div className="relative aspect-[3/4] overflow-hidden bg-sand/30 shadow-2xl border border-sand">
-                <img
-                  src="https://images.unsplash.com/photo-1544441893-675973e31985?auto=format&fit=crop&w=1200&q=85"
-                  alt="Aurelia Atelier Autumn Capsule"
-                  className="w-full h-full object-cover object-center transform hover:scale-105 transition-transform duration-700 ease-out"
-                />
-                
-                {/* Floating Image Label */}
-                <div className="absolute bottom-4 left-4 right-4 bg-alabaster/95 backdrop-blur-md p-3.5 border border-sand/80 shadow-lg flex items-center justify-between">
-                  <div>
-                    <span className="block text-[10px] tracking-widest uppercase text-muted">Piece of the Season</span>
-                    <span className="block font-serif text-sm sm:text-base font-medium text-obsidian">The Alabaster Trench</span>
-                  </div>
-                  <a
-                    href="#koleksi"
-                    className="text-xs uppercase tracking-wider font-semibold text-gold hover:text-obsidian transition-colors"
-                  >
-                    Lihat Detail
-                  </a>
-                </div>
-              </div>
+              <img
+                src="https://images.unsplash.com/photo-1579952363873-27f3bade9f55?auto=format&fit=crop&w=1000&q=80"
+                alt="Apparel Olahraga & Seragam Lapangan"
+                className="w-full h-80 sm:h-96 object-cover object-center"
+              />
 
-              {/* Decorative Corner Accent */}
-              <div className="hidden sm:block absolute -top-4 -right-4 w-24 h-24 border-t-2 border-r-2 border-gold/40 pointer-events-none" />
-              <div className="hidden sm:block absolute -bottom-4 -left-4 w-24 h-24 border-b-2 border-l-2 border-gold/40 pointer-events-none" />
+              {/* Floating Badge */}
+              <div className="absolute bottom-4 left-4 right-4 bg-white/95 backdrop-blur-sm p-4 rounded-xl border border-slate-200 shadow-md flex items-center justify-between">
+                <div>
+                  <span className="block text-[11px] font-bold text-blue-600 uppercase tracking-wider">Spesialis Apparel</span>
+                  <span className="block font-bold text-slate-900 text-sm">Jersey Olahraga & PDL Tactical</span>
+                </div>
+                <a
+                  href="#katalog"
+                  className="bg-slate-900 hover:bg-blue-600 text-white text-xs font-bold px-3 py-2 rounded-lg transition-colors"
+                >
+                  Pilih Produk
+                </a>
+              </div>
 
             </div>
           </div>
@@ -107,28 +98,6 @@ export default function Hero() {
         </div>
 
       </div>
-
-      {/* Numerical Stats Banner */}
-      <div className="mt-16 sm:mt-20 border-t border-b border-sand/60 bg-ecru/40 py-6 sm:py-8">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 text-center">
-            {STORE_CONFIG.stats.map((stat, i) => (
-              <div key={i} className="space-y-1">
-                <div className="font-serif text-2xl sm:text-3xl lg:text-4xl font-normal text-obsidian tracking-tight">
-                  {stat.value}
-                </div>
-                <div className="text-xs tracking-wider uppercase font-medium text-obsidian/80">
-                  {stat.label}
-                </div>
-                <div className="text-[11px] text-muted hidden sm:block">
-                  {stat.detail}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
     </section>
   );
 }

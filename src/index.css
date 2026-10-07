@@ -8,40 +8,26 @@
   }
   
   body {
-    background-color: #FAF9F6;
-    color: #0C0D0E;
+    background-color: #F8FAFC;
+    color: #0F172A;
     font-family: 'Plus Jakarta Sans', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 
-  /* Custom subtle scrollbar */
+  /* Clean subtle scrollbar */
   ::-webkit-scrollbar {
     width: 6px;
     height: 6px;
   }
   ::-webkit-scrollbar-track {
-    background: #FAF9F6;
+    background: #F1F5F9;
   }
   ::-webkit-scrollbar-thumb {
-    background: #D4CEB8;
+    background: #CBD5E1;
     border-radius: 9999px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: #A6874E;
-  }
-}
-
-@layer utilities {
-  .font-serif-luxury {
-    font-family: 'Cormorant Garamond', Didot, serif;
-  }
-  
-  .font-display-luxury {
-    font-family: 'Cinzel', serif;
-  }
-
-  .text-balance {
-    text-wrap: balance;
+    background: #94A3B8;
   }
 }

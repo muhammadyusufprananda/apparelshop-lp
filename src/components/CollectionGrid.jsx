@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Eye, MessageCircle, ShoppingBag, Check } from 'lucide-react';
+import { Eye, MessageCircle, ShoppingBag, CheckCircle } from 'lucide-react';
 import { CATEGORIES, PRODUCTS } from '../data/products';
 import { formatIDR } from '../utils/formatters';
 import { generateProductWhatsAppUrl } from '../utils/whatsapp';
@@ -8,42 +8,40 @@ import { useCart } from '../context/CartContext';
 export default function CollectionGrid() {
   const [activeCategory, setActiveCategory] = useState('all');
   const { setQuickViewProduct, addToCart } = useCart();
-  const [hoveredCardId, setHoveredCardId] = useState(null);
 
   const filteredProducts = activeCategory === 'all'
     ? PRODUCTS
     : PRODUCTS.filter(p => p.category === activeCategory);
 
   return (
-    <section id="koleksi" className="py-20 sm:py-28 bg-alabaster">
+    <section id="katalog" className="py-14 sm:py-20 bg-slate-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 sm:mb-16 gap-6 border-b border-sand pb-8">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
           <div>
-            <span className="text-[11px] tracking-widest-2xl uppercase text-muted font-medium block mb-2">
-              Koleksi Tersedia — Autumn / Winter '26
+            <span className="text-xs font-bold text-blue-600 uppercase tracking-wider block mb-1">
+              Katalog Siap Order
             </span>
-            <h2 className="font-serif text-3xl sm:text-5xl font-light text-obsidian tracking-tight">
-              Koleksi Busana Pilihan
+            <h2 className="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight">
+              Pilihan Baju Olahraga & Lapangan
             </h2>
           </div>
-
-          <p className="text-muted text-xs sm:text-sm max-w-md font-light leading-relaxed">
-            Setiap potong busana diproduksi dalam kuota terbatas. Klik produk untuk melihat detail spesifikasi serat atau langsung hubungi Concierge via WhatsApp.
+          <p className="text-slate-600 text-xs sm:text-sm max-w-md">
+            Pilih model yang Anda butuhkan. Klik <strong>Pesan via WhatsApp</strong> untuk memesan langsung atau klik <strong>Detail</strong> untuk melihat panduan ukuran.
           </p>
         </div>
 
         {/* Category Filters */}
-        <div className="flex items-center gap-2 sm:gap-3 overflow-x-auto pb-4 mb-10 no-scrollbar">
+        <div className="flex items-center gap-2 overflow-x-auto pb-4 mb-8 no-scrollbar">
           {CATEGORIES.map(cat => (
             <button
               key={cat.id}
               onClick={() => setActiveCategory(cat.id)}
-              className={`px-5 py-2.5 text-xs tracking-wider uppercase whitespace-nowrap transition-all duration-200 border rounded-sm font-medium ${
+              className={`px-4 py-2 rounded-lg text-xs font-bold whitespace-nowrap transition-all border ${
                 activeCategory === cat.id
-                  ? 'bg-obsidian text-alabaster border-obsidian'
-                  : 'bg-transparent text-obsidian/70 border-sand hover:border-obsidian/40 hover:text-obsidian'
+                  ? 'bg-blue-600 text-white border-blue-600 shadow-sm'
+                  : 'bg-white text-slate-700 border-slate-300 hover:border-blue-400 hover:text-blue-600'
               }`}
             >
               {cat.label}
@@ -53,131 +51,112 @@ export default function CollectionGrid() {
         </div>
 
         {/* Products Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-12">
-          {filteredProducts.map(product => {
-            const isHovered = hoveredCardId === product.id;
-            const primaryImage = product.image;
-            const secondaryImage = product.hoverImage || product.image;
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {filteredProducts.map(product => (
+            <div
+              key={product.id}
+              className="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-md hover:border-slate-300 transition-all flex flex-col justify-between"
+            >
+              {/* Product Image */}
+              <div className="relative aspect-[4/3] bg-slate-100 overflow-hidden">
+                <img
+                  src={product.image}
+                  alt={product.name}
+                  className="w-full h-full object-cover object-center hover:scale-105 transition-transform duration-300"
+                  loading="lazy"
+                />
 
-            return (
-              <div
-                key={product.id}
-                className="group flex flex-col justify-between"
-                onMouseEnter={() => setHoveredCardId(product.id)}
-                onMouseLeave={() => setHoveredCardId(null)}
-              >
-                {/* Product Image Box */}
-                <div className="relative aspect-[3/4] bg-sand/30 overflow-hidden mb-4 border border-sand/60">
-                  
-                  {/* Primary & Hover Images */}
-                  <img
-                    src={isHovered ? secondaryImage : primaryImage}
-                    alt={product.name}
-                    className="w-full h-full object-cover object-center transition-all duration-700 ease-out group-hover:scale-105"
-                    loading="lazy"
-                  />
-
-                  {/* Top Badges */}
-                  <div className="absolute top-3 left-3 flex flex-col gap-1.5 items-start">
-                    {product.badge && (
-                      <span className={`text-[10px] tracking-wider uppercase px-2.5 py-1 font-semibold ${
-                        product.badgeType === 'gold'
-                          ? 'bg-gold text-obsidian'
-                          : 'bg-obsidian text-alabaster'
-                      }`}>
-                        {product.badge}
-                      </span>
-                    )}
-                    {product.stock && (
-                      <span className="text-[9px] tracking-widest uppercase bg-alabaster/90 backdrop-blur-sm text-obsidian px-2 py-0.5 border border-sand font-medium">
-                        {product.stock}
-                      </span>
-                    )}
+                {/* Badge Tag */}
+                {product.badge && (
+                  <div className="absolute top-2 left-2">
+                    <span className="bg-amber-500 text-slate-900 text-[10px] font-black uppercase px-2 py-0.5 rounded shadow-sm">
+                      {product.badge}
+                    </span>
                   </div>
+                )}
 
-                  {/* Overlay Action Buttons on Hover */}
-                  <div className="absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-obsidian/80 via-obsidian/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-between gap-2">
-                    <button
-                      type="button"
-                      onClick={() => setQuickViewProduct(product)}
-                      className="flex-1 bg-alabaster text-obsidian hover:bg-gold hover:text-obsidian py-2.5 px-3 text-[11px] uppercase tracking-wider font-semibold transition-colors flex items-center justify-center gap-1.5 shadow"
-                    >
-                      <Eye size={13} />
-                      <span>Detail & Ukuran</span>
-                    </button>
-                    
-                    <a
-                      href={generateProductWhatsAppUrl(product, product.sizes[0] || 'M')}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="bg-emerald-600 hover:bg-emerald-700 text-white p-2.5 text-xs transition-colors shadow flex items-center justify-center"
-                      title="Pesan Langsung via WhatsApp"
-                    >
-                      <MessageCircle size={15} />
-                    </a>
-                  </div>
+                {/* Quick Detail Eye Button */}
+                <button
+                  type="button"
+                  onClick={() => setQuickViewProduct(product)}
+                  className="absolute bottom-2 right-2 bg-white/90 hover:bg-white text-slate-800 p-2 rounded-lg shadow text-xs font-semibold flex items-center gap-1 transition-colors"
+                  title="Lihat Detail & Ukuran"
+                >
+                  <Eye size={14} />
+                  <span>Detail</span>
+                </button>
+              </div>
 
-                </div>
-
-                {/* Product Details */}
-                <div className="space-y-2">
-                  {/* Edition Subtitle */}
-                  <div className="text-[10px] tracking-widest uppercase text-muted">
-                    {product.edition}
-                  </div>
-
-                  {/* Product Title */}
+              {/* Product Info */}
+              <div className="p-4 flex-1 flex flex-col justify-between space-y-3">
+                
+                <div>
                   <h3
                     onClick={() => setQuickViewProduct(product)}
-                    className="font-serif text-lg font-medium text-obsidian hover:text-gold cursor-pointer transition-colors leading-snug line-clamp-1"
+                    className="font-bold text-slate-900 text-base leading-snug hover:text-blue-600 cursor-pointer line-clamp-1"
                   >
                     {product.name}
                   </h3>
+                  
+                  <p className="text-xs text-slate-500 line-clamp-1 mt-0.5">
+                    {product.subtitle}
+                  </p>
 
-                  {/* Size Pills */}
-                  <div className="flex items-center gap-1.5 pt-0.5">
-                    <span className="text-[10px] text-muted uppercase mr-1">Size:</span>
-                    {product.sizes.map(size => (
-                      <span
-                        key={size}
-                        className="text-[10px] px-1.5 py-0.5 border border-sand/80 text-obsidian/80 rounded-sm font-mono"
-                      >
-                        {size}
-                      </span>
-                    ))}
+                  {/* Material highlight */}
+                  <div className="mt-2 text-[11px] text-slate-600 bg-slate-100 px-2 py-1 rounded inline-block">
+                    Bahan: <span className="font-semibold text-slate-800">{product.material.split('(')[0]}</span>
                   </div>
+                </div>
 
-                  {/* Price Row */}
-                  <div className="flex items-baseline justify-between pt-1">
-                    <div className="flex items-baseline gap-2">
-                      <span className="text-sm font-semibold tracking-tight text-obsidian">
+                {/* Price and Action */}
+                <div className="pt-2 border-t border-slate-100 space-y-3">
+                  
+                  {/* Price */}
+                  <div className="flex items-baseline justify-between">
+                    <div>
+                      <span className="text-lg font-black text-slate-900">
                         {formatIDR(product.price)}
                       </span>
                       {product.originalPrice && (
-                        <span className="text-xs text-muted line-through">
+                        <span className="text-xs text-slate-400 line-through ml-2">
                           {formatIDR(product.originalPrice)}
                         </span>
                       )}
                     </div>
+                    <span className="text-[10px] text-emerald-700 bg-emerald-50 font-bold px-2 py-0.5 rounded border border-emerald-200">
+                      {product.stock}
+                    </span>
                   </div>
 
-                  {/* Quick WhatsApp Action Button */}
-                  <div className="pt-2">
+                  {/* Buttons Action */}
+                  <div className="grid grid-cols-2 gap-2 pt-1">
                     <a
-                      href={generateProductWhatsAppUrl(product, product.sizes[0] || 'M')}
+                      href={generateProductWhatsAppUrl(product, product.sizes[1] || 'L')}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="w-full inline-flex items-center justify-center gap-2 py-2 px-3 border border-obsidian/20 text-obsidian hover:bg-obsidian hover:text-alabaster text-[11px] tracking-widest uppercase font-medium transition-all duration-200"
+                      className="inline-flex items-center justify-center gap-1.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold py-2 px-2 rounded-lg transition-colors shadow-sm"
+                      title="Pesan langsung lewat WhatsApp"
                     >
-                      <MessageCircle size={13} className="text-emerald-600" />
-                      <span>Order via WhatsApp</span>
+                      <MessageCircle size={15} />
+                      <span>Order WA</span>
                     </a>
+
+                    <button
+                      type="button"
+                      onClick={() => addToCart(product, product.sizes[1] || 'L', product.colors[0]?.name, 1)}
+                      className="inline-flex items-center justify-center gap-1.5 bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-bold py-2 px-2 rounded-lg transition-colors border border-slate-300"
+                      title="Masukkan ke daftar pesanan"
+                    >
+                      <ShoppingBag size={14} />
+                      <span>+ Ke Tas</span>
+                    </button>
                   </div>
 
                 </div>
+
               </div>
-            );
-          })}
+            </div>
+          ))}
         </div>
 
       </div>
